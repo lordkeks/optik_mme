@@ -71,8 +71,9 @@
 	\newpage
 	\noindent
 	\textbf{Beschreiben Sie Vor- und Nachteilen von Rolling- vs. Global Shutter.}\\
-	Bei sehr schnellen Abläufen kann sich das Bild während der Aufnahme ändern. Bei einem Rolling Shutter führt dies zu einem verzerrten Bild. Ein globaler Shutter ließt alle Pixel gleichzeitig aus, was allerdings länger dauert.
-	
+	Da der Rolling Shutter zeilenweise oder spaltenweise auslöst, kann es passieren, dass bei der Aufnahme von schnell bewegenden Objekten das resultierende Bild verzerrt ist. Gegenüber dem Global Shutter können beim Rolling Shutter allerdings weniger Transistoren eingesetzt werden. Das ist billiger und zudem entsteht weniger Wärmeentwicklung und geringeres Rauschen. Ein globaler Shutter liest alle Pixel gleichzeitig aus. Das dauert länger und macht den Sensor komplexer und teurer. Allerdings entstehen hier keine Verzerrungseffekte wie beim Rolling Shutter. 
+
+
 	\section{Area- und Linescan}
 	\textbf{Was unterscheidet eine Flächen- von einer Zeilenkamera?}\\
 	Bei einer Flächenkamera besteht der Sensor aus einem Array von Pixeln. So kann mit einem einzigen Auslösevorgang ein zweidimensionales Bild aufgenommen werden. Eine Zeilenkamera hingegen verfügt über einen Sensor mit nur einer einzigen Pixelzeile. Hierbei muss sich das aufzunehmende Objekt relativ zur Kamera bewegen, damit ein zweidimensionales Bild entsteht. Die Bewegungsrichtung (Vorschub) sollte dabei senkrecht zur Sensorzeile stehen. Viele Areasensoren können auch im Zeilenmodus betrieben werden.\\
@@ -83,7 +84,7 @@
 	\section{Sensorgröße und Auflösung}
 	\textbf{Wie groß (in Millimeter x Millimeter) ist ein 12 Mpixel Sensor mit d=5 µm quadratischen
 	Pixeln?}\\
-	Das hängt vom Seitenverhältnis ab.\\In einem Sensor mit Seitenverhältnis von 4:3 finden wir 4000 mal 3000 Pixel ($4*3=12$). Multipliziert mit den 5µm, sind das 20 mal 15mm.
+	Das hängt vom Seitenverhältnis ab.\\In einem Sensor mit Seitenverhältnis von 4:3 finden wir 4000 mal 3000 Pixel ($4*3=12$). Damit ist die Sensorgröße ($5\mu m\times 4000$)$\times$($5\mu m\times 3000$)$=20mm \times 15mm$ groß.
 	
 	\section{Photonenausbeute und Photonenkapazität}
 	\textbf{Machen Sie sich vertraut mit den Begriffen Photonenausbeute und Full-well-capacity.}\\
@@ -92,8 +93,7 @@
 	Eine hohe Photonenausbeute ist erwünscht wenn wenig Licht zur Verfügung steht. Solche Kameras könnten zum Beispiel in der Astronomie oder zur Detektion in Laboren notwendig sein.\\
 	Eine höhere Full-well-capacity hingegen, bewirkt dass jeder Pixel mehr Licht aufnehmen kann, bevor er an sein maximales Limit stößt. Solche Kameras verfügen über einen hohen Dynamikbereich und sind geeignet für Aufnahmen mit starken Kontrasten.
 	
-	\newpage
-	
+
 	\section{Pixelgröße}
 	\textbf{Was meinen Sie, welche Aussage stimmt (Begründung):}\\
 	\textbf{a) große Pixel haben (meist) eine bessere Photonenausbeute}\\
@@ -113,6 +113,8 @@
 	\textbf{Thema Farbe:}\\
 	\textbf{Was ist der Vorteil und der Nachteil von Farbkameras mit Bayer-Filter?}\\
 	Die Pixel eines Sensors sind per se unabhängig von der Wellenlänge des Lichts. Durch einen Farbfilter unmittelbar über dem Sensor, können Farbanteile des eingefangenen Lichts quantisiert werden. Um ein Farbbild im RGB-Raum zu bekommen, sind also drei Filter, Rot, Grün und Blau notwendig. Ein Bayer-Filter ist quasi ein buntes Schachbrettmuster, so dass aus vier monochromen Pixeln ein Pixel mit drei Farbkanälen wird. Hier erschließt sich auch gleich der Nachteil. Durch das Demosaic des Bayer-Filters wird die Auflösung des Sensors zum Beispiel auf ein Viertel reduziert.
+    
+    \newpage
 	
 	\section{Sehr kurze Belichtungszeiten}
 	\textbf{Thema: extrem schnelle Prozesse}\\
@@ -129,7 +131,7 @@
 		\end{tabular}
 	\end{center}
 	
-	\newpage
+	
 	
 	\section{Stereokameras}
 	\textbf{Haben Sie verstanden, wie eine Stereokamera funktioniert?}\\
