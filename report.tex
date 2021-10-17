@@ -1,0 +1,145 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Optik und BOS: Wochenaufgabe 2}
+\rhead{\today}
+\lfoot{HTWG Konstanz}
+\rfoot{Seite \thepage}
+
+\begin{document}
+	\thispagestyle{empty}
+	
+	\begin{center}\strut
+		\bfseries\Huge
+		Wochenaufgabe 2
+	\end{center}
+	\vfill
+	
+	\begin{center}\strut
+		\textbf{Optik und bildgebende optische Systeme}\\
+		Hochschule Konstanz Technik, Wirtschaft und Gestaltung\\
+		Wintersemester 2021/22
+	\end{center}
+	%\vfill
+	
+	\begin{center}\strut
+		\textbf{Team 6:}\\
+		Milan Kaiser\\
+		Ruwen Kohm\\
+		Christian Schmeißer\\
+	\end{center}
+	\vfill
+	\vfill
+
+	\clearpage
+	
+	\section{Vor- und Nachteile von CMOS und CCD}
+	\textbf{Nennen Sie Vor- und Nachteile von CMOS und CCD Kameras (kleine Tabelle).}
+	\begin{center}
+		\begin{tabular}{ c|c|c }
+			       & Vorteile & Nachteile \\ 
+			       \hline
+			       & Höhere Quanteneffizienz &  Höherer Stromverbrauch\\
+			CCD	   & Global Shutter &  Langsameres Auslesen\\
+				   & & \textit{smearing} und \textit{blooming} bei Überbelichtung\\
+				   & & Mehr Shot-Noise wegen meißt größerem active pixel area\\
+				   \hline  
+			       & Weniger Readout-Noise & Rolling Shutter \\ 
+			CMOS   & Höherer Dynamikumfang & Mehr Pattern-Noise durch ungleichmäßige Fertigung \\
+			       & Rauschreduktion im Pixel & \\
+		\end{tabular}
+	\end{center}
+	
+	\section{Verschiedene Sensormaterialien}
+	\textbf{Warum gibt es verschiedene Materialien aus denen Sensoren hergestellt werden?}\\
+	Verschieden dotiertes Silizium weißt unterschiedliche Eigenschaften in der Interaktion mit Photonen auf.\\
+	\textbf{Nennen Sie diese und beschreiben Sie deren Anwendung.}\\
+	Beispielsweise werden germaniumdotierte Photodioden wegen ihres höheren Absorptionskoeffizienten für Hochgeschwindigkeitskameras verwendet.\\
+	Quelle: https://www.mdpi.com/1424-8220/20/23/6895/pdf
+	
+	
+	\section{Shutter}
+	\textbf{Warum benötigt man Shutter?}\\
+	In Filmkameras war ein Shutter notwendig um die Zeit zu begrenzen in der Licht auf das Filmnegativ fiel. Dabei handelte es sich um einen mechanischen Vorhang der für die Dauer der Belichtung zur Seite geschoben wurde. Obwohl auch bei vielen (gerade professionellen) Digitalkameras noch ein mechanischer Shutter zum Einsatz kommt, steht der Begriff im Computervision Bereich eher für den Auslesevorgang des Bildsensors.
+	\begin{itemize}
+		\item CCD: In CCD-Kameras spricht man von einem globalen Shutter. Dabei werden alle Zellen in einer Zeile zusammen ausgelesen und diese Zeilen wiederum in ein globales Schieberegister geschrieben. Auf diese Art wird das Bild aus dem Sensor ausgelesen.
+		\item CMOS: In modernen CMOS-Kameras besitzt jeder Pixel über eine eigene Ausleseelektronik. Die Pixel werden über ein Zeilen-Spalten-System adressiert, wodurch es nicht immer möglich ist alle Pixel gleichzeitig auszulesen. Typischerweise werden Bilder hier Zeilenweise ausgelesen (\textit{Rolling Shutter}), wodurch bei schnellen Bewegungen im Bild Fehler auftreten können. Es gibt auch CMOS Sensoren mit großem Datenbus und leistungsstarken Bildprozessoren, welche einen globalen Shutter realisieren können.
+	\end{itemize}
+	\newpage
+	\noindent
+	\textbf{Beschreiben Sie Vor- und Nachteilen von Rolling- vs. Global Shutter.}\\
+	Bei sehr schnellen Abläufen kann sich das Bild während der Aufnahme ändern. Bei einem Rolling Shutter führt dies zu einem verzerrten Bild. Ein globaler Shutter ließt alle Pixel gleichzeitig aus, was allerdings länger dauert.
+	
+	\section{Area- und Linescan}
+	\textbf{Was unterscheidet eine Flächen- von einer Zeilenkamera?}\\
+	Bei einer Flächenkamera besteht der Sensor aus einem Array von Pixeln. So kann mit einem einzigen Auslösevorgang ein zweidimensionales Bild aufgenommen werden. Eine Zeilenkamera hingegen verfügt über einen Sensor mit nur einer einzigen Pixelzeile. Hierbei muss sich das aufzunehmende Objekt relativ zur Kamera bewegen, damit ein zweidimensionales Bild entsteht. Die Bewegungsrichtung (Vorschub) sollte dabei senkrecht zur Sensorzeile stehen. Viele Areasensoren können auch im Zeilenmodus betrieben werden.\\
+	\textbf{Wo setzen Sie welchen Typ ein?}\\
+	Möchte man sich bewegende Objekte, oder endlos lange Bilder aufnehmen (Beispiel: Inspektion von Bandware), so bietet sich der Einsatz einer Zeilenkamera an. Hierbei besteht die Schwierigkeit die Geschwindigkeit des Objektes und die Auslösung des Sensors zu koordinieren.\\
+	Flächenkameras eignen sich besser um Objekte aufzunehmen die sich kaum bis gar nicht bewegen, oder wenn die Bewegungsrichtung unbekannt ist. Areasensoren sind häufig in der Robotik, dem autonomen Fahren oder in der Stereoskopie zu finden.
+	
+	\section{Sensorgröße und Auflösung}
+	\textbf{Wie groß (in Millimeter x Millimeter) ist ein 12 Mpixel Sensor mit d=5 µm quadratischen
+	Pixeln?}\\
+	Das hängt vom Seitenverhältnis ab.\\In einem Sensor mit Seitenverhältnis von 4:3 finden wir 4000 mal 3000 Pixel ($4*3=12$). Multipliziert mit den 5µm, sind das 20 mal 15mm.
+	
+	\section{Photonenausbeute und Photonenkapazität}
+	\textbf{Machen Sie sich vertraut mit den Begriffen Photonenausbeute und Full-well-capacity.}\\
+	\textbf{Überlegen Sie sich Anwendungen wo Sie mehr Wert auf die eine oder die andere Größe
+	legen würden. Notieren Sie diese.}
+	Eine hohe Photonenausbeute ist erwünscht wenn wenig Licht zur Verfügung steht. Solche Kameras könnten zum Beispiel in der Astronomie oder zur Detektion in Laboren notwendig sein.\\
+	Eine höhere Full-well-capacity hingegen, bewirkt dass jeder Pixel mehr Licht aufnehmen kann, bevor er an sein maximales Limit stößt. Solche Kameras verfügen über einen hohen Dynamikbereich und sind geeignet für Aufnahmen mit starken Kontrasten.
+	
+	\newpage
+	
+	\section{Pixelgröße}
+	\textbf{Was meinen Sie, welche Aussage stimmt (Begründung):}\\
+	\textbf{a) große Pixel haben (meist) eine bessere Photonenausbeute}\\
+	Falsch. Um einen großen Pixel zu füllen sind mehr Photonen notwendig.\\
+	\textbf{b) große Pixel haben (meist) eine größere Full-well-capacity}\\
+	Tendenziell richtig. Je nach Material kann ein größerer Pixel mehr Photonen aufnehmen.\\
+	\textbf{c) Kameras mit größeren Sensoren können mehr Licht sammeln, sind daher
+	lichtempfindlicher}\\
+	Falsch. Die Menge des Lichtes die auf den Sensor trifft, hängt nicht von dessen Größe ab. 
+	
+	\section{Bildrauschen}
+	\textbf{Thema Rauschen:}\\
+	\textbf{Lesen Sie diese Kapitel intensiv durch. Dazu werden im Kurs weitere Aufgaben gestellt.
+	Hierzu aber in dieser Woche keine Frage.}
+	
+	\section{Farbe und Bayer-Filter}
+	\textbf{Thema Farbe:}\\
+	\textbf{Was ist der Vorteil und der Nachteil von Farbkameras mit Bayer-Filter?}\\
+	Die Pixel eines Sensors sind per se unabhängig von der Wellenlänge des Lichts. Durch einen Farbfilter unmittelbar über dem Sensor, können Farbanteile des eingefangenen Lichts quantisiert werden. Um ein Farbbild im RGB-Raum zu bekommen, sind also drei Filter, Rot, Grün und Blau notwendig. Ein Bayer-Filter ist quasi ein buntes Schachbrettmuster, so dass aus vier monochromen Pixeln ein Pixel mit drei Farbkanälen wird. Hier erschließt sich auch gleich der Nachteil. Durch das Demosaic des Bayer-Filters wird die Auflösung des Sensors zum Beispiel auf ein Viertel reduziert.
+	
+	\section{Sehr kurze Belichtungszeiten}
+	\textbf{Thema: extrem schnelle Prozesse}\\
+	\textbf{Warum kann die Belichtungszeit einer Kamera bei einer Aufnahme nicht beliebig klein
+	gemacht werden? Nennen Sie verschiedene Gründe. Nennen Sie in der gleichen Tabelle
+	Maßnahmen, um dies doch zu erreichen.}
+	\begin{center}
+		\begin{tabular}{ c|c }
+			Grund & Gegenmaßnahme \\ 
+			\hline
+			Der Sensor benötigt Zeit zum Auslesen & CCD statt CMOS \\
+			Zu wenig Zeit um genügend Photonen zu sammeln & Höhere QE oder heller beleuchten \\
+			Datenspeicher schreibt zu langsam & Bilder intern puffern und später abspeichern
+		\end{tabular}
+	\end{center}
+	
+	\newpage
+	
+	\section{Stereokameras}
+	\textbf{Haben Sie verstanden, wie eine Stereokamera funktioniert?}\\
+	Ja.\\
+	\textbf{Können Sie die jemanden anderen erklären?}
+	\begin{itemize}
+		\item Tiefendaten anhand eines Laserprofils: Eine Laserlinie wird mit Hilfe einer Kamera aufgezeichnet. Ein Versatz in der Linie deutet auf einen Höhenunterschied hin. Diese Methode ist anfällig für Okklusion (Verdeckung der Laserlinie aufgrund der Geometrie des Objekts).
+		\item Tiefendaten durch Fringe Projection: Hierbei wird ein Muster auf die Oberfläche projiziert aus dessen Verzerrung Tiefendaten errechnet werden können. Wie beim Laserprofil ist diese Methode anfällig für Okklusion.
+		\item Time Of Flight: steht für Laufzeit. Hierbei wird ein Lichtimpuls ausgesendet und die Zeit bis zu seiner Rückkehr gemessen. Durch die Lichtgeschwindigkeit geteilt ergibt das die Entfernung zum Objekt. Diese Methode liefert sehr ungenaue Daten und ist deshalb eher schlecht für Produktinspektionen geeignet.
+		\item Stereokamera: Mit Hilfe von zwei Kameras werden zwei Bilder aus verschiedenen Winkeln gemacht. Mit diesen zwei Bildern lässt sich dann zum Beispiel eine Displacement Map errechnen. Auch diese Methode ist eher grob und nicht für die Inspektion geeignet. Sie findet häufig im Bereich der Robotik und im maschinellen Sehen Anwendung.
+	\end{itemize}
+	
+\end{document}
