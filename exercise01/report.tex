@@ -45,9 +45,8 @@
 			       & Höhere Quanteneffizienz &  Höherer Stromverbrauch\\
 			CCD	   & Global Shutter &  Langsameres Auslesen\\
 				   & & \textit{smearing} und \textit{blooming} bei Überbelichtung\\
-				   & & Mehr Shot-Noise wegen meißt größerem active pixel area\\
 				   \hline  
-			       & Weniger Readout-Noise & Rolling Shutter \\ 
+			       & Rolling Shutter & Rolling Shutter \\ 
 			CMOS   & Höherer Dynamikumfang & Mehr Pattern-Noise durch ungleichmäßige Fertigung \\
 			       & Rauschreduktion im Pixel & \\
 		\end{tabular}
@@ -65,14 +64,13 @@
 	\textbf{Warum benötigt man Shutter?}\\
 	In Filmkameras war ein Shutter notwendig um die Zeit zu begrenzen in der Licht auf das Filmnegativ fiel. Dabei handelte es sich um einen mechanischen Vorhang der für die Dauer der Belichtung zur Seite geschoben wurde. Obwohl auch bei vielen (gerade professionellen) Digitalkameras noch ein mechanischer Shutter zum Einsatz kommt, steht der Begriff im Computervision Bereich eher für den Auslesevorgang des Bildsensors.
 	\begin{itemize}
-		\item CCD: In CCD-Kameras spricht man von einem globalen Shutter. Dabei werden alle Zellen in einer Zeile zusammen ausgelesen und diese Zeilen wiederum in ein globales Schieberegister geschrieben. Auf diese Art wird das Bild aus dem Sensor ausgelesen.
-		\item CMOS: In modernen CMOS-Kameras besitzt jeder Pixel über eine eigene Ausleseelektronik. Die Pixel werden über ein Zeilen-Spalten-System adressiert, wodurch es nicht immer möglich ist alle Pixel gleichzeitig auszulesen. Typischerweise werden Bilder hier Zeilenweise ausgelesen (\textit{Rolling Shutter}), wodurch bei schnellen Bewegungen im Bild Fehler auftreten können. Es gibt auch CMOS Sensoren mit großem Datenbus und leistungsstarken Bildprozessoren, welche einen globalen Shutter realisieren können.
+		\item CCD: In CCD-Kameras spricht man von einem globalen Shutter. Dabei werden alle Zellen in einer Zeile zusammen ausgelesen und diese Zeilen wiederum in ein globales Schieberegister geschrieben. Auf diese Art wird das Bild aus dem Sensor ausgelesen. Um die Framerate zu erhöhen wird hier Interlacing angewendet, so dass immer nur jede zweite Zeile zum Bild beiträgt. Bei doppelter Framerate wird so aber auch die Auflösung halbiert.
+		\item CMOS: In modernen CMOS-Kameras besitzt jeder Pixel über eine eigene Ausleseelektronik. Die Pixel werden über ein Zeilen-Spalten-System adressiert, wodurch es möglich ist Zeilen nacheinander auszulesen. Indem Zeilen so im "Durchlaufverfahren" (\textit{Rolling Shutter}) ausgelesen werden, wird die Framerate deutlich erhöht. Bei schnellen Bewegungen treten hier allerdings Verzerrungen im Bild auf.
 	\end{itemize}
 	\newpage
 	\noindent
 	\textbf{Beschreiben Sie Vor- und Nachteilen von Rolling- vs. Global Shutter.}\\
 	Da der Rolling Shutter zeilenweise oder spaltenweise auslöst, kann es passieren, dass bei der Aufnahme von schnell bewegenden Objekten das resultierende Bild verzerrt ist. Gegenüber dem Global Shutter können beim Rolling Shutter allerdings weniger Transistoren eingesetzt werden. Das ist billiger und zudem entsteht weniger Wärmeentwicklung und geringeres Rauschen. Ein globaler Shutter liest alle Pixel gleichzeitig aus. Das dauert länger und macht den Sensor komplexer und teurer. Allerdings entstehen hier keine Verzerrungseffekte wie beim Rolling Shutter. 
-
 
 	\section{Area- und Linescan}
 	\textbf{Was unterscheidet eine Flächen- von einer Zeilenkamera?}\\
@@ -86,6 +84,8 @@
 	Pixeln?}\\
 	Das hängt vom Seitenverhältnis ab. In einem Sensor mit Seitenverhältnis von 4:3 finden wir 4000 mal 3000 Pixel ($4*3=12$). Damit ist die Sensorgröße ($5\mu m\times 4000$)$\times$($5\mu m\times 3000$)$=20mm \times 15mm$ groß.
 	
+	\newpage
+	
 	\section{Photonenausbeute und Photonenkapazität}
 	\textbf{Machen Sie sich vertraut mit den Begriffen Photonenausbeute und Full-well-capacity.}\\
 	\textbf{Überlegen Sie sich Anwendungen wo Sie mehr Wert auf die eine oder die andere Größe
@@ -97,12 +97,12 @@
 	\section{Pixelgröße}
 	\textbf{Was meinen Sie, welche Aussage stimmt (Begründung):}\\
 	\textbf{a) große Pixel haben (meist) eine bessere Photonenausbeute}\\
-	Falsch. Um einen großen Pixel zu füllen sind mehr Photonen notwendig.\\
+	Falsch. Die Quanteneffizienz hängt nicht von der Größe des Pixels ab.\\
 	\textbf{b) große Pixel haben (meist) eine größere Full-well-capacity}\\
-	Tendenziell richtig. Je nach Material kann ein größerer Pixel mehr Photonen aufnehmen.\\
+	Richtig. Je nach Material kann ein größerer Pixel mehr Photonen aufnehmen.\\
 	\textbf{c) Kameras mit größeren Sensoren können mehr Licht sammeln, sind daher
 	lichtempfindlicher}\\
-	Falsch. Die Menge des Lichtes die auf den Sensor trifft, hängt nicht von dessen Größe ab. 
+	Falsch. Insgesamt trifft zwar mehr Licht auf den Sensor, aber das Licht pro Fläche hängt nicht von der Sensorgröße ab. 
 	
 	\section{Bildrauschen}
 	\textbf{Thema Rauschen:}\\
@@ -112,7 +112,7 @@
 	\section{Farbe und Bayer-Filter}
 	\textbf{Thema Farbe:}\\
 	\textbf{Was ist der Vorteil und der Nachteil von Farbkameras mit Bayer-Filter?}\\
-	Die Pixel eines Sensors sind per se unabhängig von der Wellenlänge des Lichts. Durch einen Farbfilter unmittelbar über dem Sensor, können Farbanteile des eingefangenen Lichts quantisiert werden. Um ein Farbbild im RGB-Raum zu bekommen, sind also drei Filter, Rot, Grün und Blau notwendig. Ein Bayer-Filter ist quasi ein buntes Schachbrettmuster, so dass aus vier monochromen Pixeln ein Pixel mit drei Farbkanälen wird. Hier erschließt sich auch gleich der Nachteil. Durch das Demosaic des Bayer-Filters wird die Auflösung des Sensors zum Beispiel auf ein Viertel reduziert.
+	Die Pixel eines Sensors sind meist empfindlich für verschiedene Wellenlängen. Durch einen Farbfilter unmittelbar über dem Sensor, können Farbanteile des eingefangenen Lichts quantisiert werden. Um ein Farbbild im RGB-Raum zu bekommen, sind also drei Filter, Rot, Grün und Blau notwendig. Ein Bayer-Filter ist quasi ein buntes Schachbrettmuster, so dass aus vier monochromen Pixeln ein Pixel mit drei Farbkanälen wird. Hier erschließt sich auch gleich der Nachteil. Durch das Demosaic des Bayer-Filters wird die Auflösung des Sensors zum Beispiel auf ein Viertel reduziert.
     
     \newpage
 	
