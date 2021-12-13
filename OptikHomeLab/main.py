@@ -20,7 +20,7 @@ class ChartContainer:
 
 
 if __name__ == '__main__':
-    basepath = r"C:\Users\ruwen\OneDrive\Desktop\optik_mme\mtf-capture\cropped"
+    basepath = r"C:\Users\Milan\Documents\GitHub\optik_mme\mtf-capture\Cropped"
 
     # container = {"f2-8" : [], "f4": [], "f5-6": [],
     #              "f8": [], "f16": []}
@@ -53,18 +53,17 @@ if __name__ == '__main__':
 
 
 
-
 plt.show()
 axes = plt.gca()
 axes.set_xlim(2.8, 16)
-axes.set_ylim(0, 100)
+axes.set_ylim(0, 60)
 
 
 for LP in ["25LP","32LP","50LP"]:
     hl, = axes.plot([], [])
     for inner in container[LP]:
 
-        if inner["position"] == "center":
+        if inner["position"] == "bottom":
             xdata=np.append(hl.get_xdata(), inner["blende"])
             SortIdx=np.argsort(xdata)
 
@@ -76,17 +75,16 @@ for LP in ["25LP","32LP","50LP"]:
             hl.set_xdata(xdata[SortIdx])
             hl.set_ydata(np.append(hl.get_ydata(), inner["stdev"]/curref)[SortIdx])
 
-
         # plt.draw()
 
 
-
-
+plt.xticks([2.8,4,5.6,8,16])
 plt.legend(["25LP","32LP","50LP"])
-plt.title("MTF als Funktion der Blende\nMittig")
+plt.title("MTF als Funktion der Blende\nUnten")
 plt.xlabel("Blende")
 plt.ylabel("Kontrast in %")
 plt.grid()
+plt.savefig("MTF_Unten.png",dpi=600)
 plt.show()
 
 
