@@ -1,0 +1,6 @@
+- Messwerte als Punkte
+   - gestrichelte Verbindungslinien
+- Breite auf Bildseite?
+- Linienpaar 10 mitreinehmen 
+   - ggf. Linienpaar noch rein? (Selber machen)
+- gröbere Linienpaare
