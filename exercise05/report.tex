@@ -1,0 +1,89 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+
+\graphicspath{ {./images/} }
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Optik und BOS: Wochenaufgabe 5}
+\rhead{\today}
+\lfoot{HTWG Konstanz}
+\rfoot{Seite \thepage}
+
+\begin{document}
+	\thispagestyle{empty}
+	
+	\begin{center}\strut
+		\bfseries\Huge
+		Wochenaufgabe 5
+	\end{center}
+	\vfill
+	
+	\begin{center}\strut
+		\textbf{Optik und bildgebende optische Systeme}\\
+		Hochschule Konstanz Technik, Wirtschaft und Gestaltung\\
+		Wintersemester 2021/22
+	\end{center}
+	%\vfill
+	
+	\begin{center}\strut
+		\textbf{Team 6:}\\
+		Milan Kaiser\\
+		Ruwen Kohm\\
+		Christian Schmeißer\\
+	\end{center}
+	\vfill
+	\vfill
+
+	\clearpage
+	
+	\section{Kameraauslegung}
+	\textbf{Sie haben die Aufgabe bekommen, in einem Busch Vögel zu identifizieren und zuzählen. Der Busch hat
+		eine Höhe von ca. 10 Metern, der Beobachtungspunkt liegt ca. 30 m vom Busch entfernt. Beantworten
+		Sie folgende Fragen (mit kurzer Begründungbzw. Berechnung)}\\
+	
+	\begin{itemize}
+		\item[a)]) Wählen Sie einen schwarz-weiß oder Farbsensor?
+	\end{itemize}
+	\text{Da der Kontrast zwischen Vogel und Busch relativ klein ist, wird eine Erkennung über ein schwarz-weiß Bild schwierig. Daher ist ein Farbsensor hier die bessere Wahl. (Frage: Wäre ein Sensor für Grün evtl. Vorteilhaft - Kein Bayerfilter aber bessere Unterscheidung zwischen grünem Busch und Vogel?)}\\
+	\begin{itemize}
+	\item[b)] Welche Pixelzahl benötigt Ihr Sensor?
+	\end{itemize}
+	\text{Der Busch ist 10m Hoch. Ein Vogel hat eine ungefähre Größe von 10cm. Abschätzung: Der Vogel muss auf mindestens 100 Pixeln sichtbar sein, um sicher erkannt zu werden. Der Vogel nimmt also 1/100 der Höhe im Bild ein und soll auf 100 Pixeln sichtbar sein. Somit muss der Sensor vertikal 100*100=10000 Pixel haben. (Frage: Wie sieht es mit der Pixelbreite aus? Und habe ich wichtige Überlegungen vergessen?...)}\\
+	
+	\textbf{Sie haben 2 Sensoren zur Auswahl, einen S1 mit 1 Mikrometer großen, der andere S2 mit 5 Mikrometer Pixeln. Beantworten Sie folgende Fragen für jeweils beide Sensoren}\\
+	
+	\begin{itemize}
+		\item[c)] Wie groß sind die beiden Sensoren jeweils?
+	\end{itemize}
+
+	\text{Der Sensor besteht aus 10000 Pixeln in die Höhe (bei Quadratischem Sensor auch 10000 Pixel in die Breite). Somit wäre der Sensor bei 1 Mikrometer Pixelgröße 10000*0,001mm=10mm hoch \& breit. Bei einer Pixelgröße von 5 Mikrometern wäre der Pixel 10000*0,005mm=50mm hoch \& breit.}
+	
+	\begin{itemize}
+		\item[d)] Bestimmen Sie den Abbildungsmaßstab für den jeweiligen Sensor
+	\end{itemize}
+
+	\begin{itemize}
+	\item[e)] Bestimmen Sie die jeweils benötigte Brennweite des Objektivs
+	\end{itemize}
+
+	\begin{itemize}
+	\item[f)] Welche Blendenzahl müssen die Objektive mindestens haben?
+	\end{itemize}
+
+	\begin{itemize}
+	\item[g)] Welche Blendenöffnung (Durchmesser Eintrittspupille) müssen die Objektive mindestens
+	haben?
+	\end{itemize}
+
+	\begin{itemize}
+	\item[h)] Wie unterscheiden sich die beiden Objektive in Bezug auf Anforderungen
+		\begin{itemize}
+			\item[1.)] optische Qualität/MTF
+			\item[2.)] Baugröße (Durchmesser und Länge)
+			\item[3.)] Bildkreisdurchmesser
+		\end{itemize}
+	\end{itemize}
+\end{document}
