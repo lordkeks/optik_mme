@@ -38,6 +38,7 @@
 	\vfill
 
 	\clearpage
+	\newpage
 	
 	\section{Kameraauslegung}
 	\textbf{Sie haben die Aufgabe bekommen, in einem Busch Vögel zu identifizieren und zuzählen. Der Busch hat
@@ -47,11 +48,11 @@
 	\begin{itemize}
 		\item[a)]) Wählen Sie einen schwarz-weiß oder Farbsensor?
 	\end{itemize}
-	\text{Da der Kontrast zwischen Vogel und Busch relativ klein ist, wird eine Erkennung über ein schwarz-weiß Bild schwierig. Daher ist ein Farbsensor hier die bessere Wahl. (Frage: Wäre ein Sensor für Grün evtl. Vorteilhaft - Kein Bayerfilter aber bessere Unterscheidung zwischen grünem Busch und Vogel?)}\\
+	Da der Kontrast zwischen Vogel und Busch relativ klein ist, wird eine Erkennung über ein reines Graustufenbild schwierig. Abhängig von der Art des zu beobachtenden Vogels wäre ein monochromer Sensor mit Bandpassfilter zu wählen. Beispiel Buchfink: Würde sich hervorragend vom grünen Busch abheben unter der Verwendung eines Bandpassfilters, welcher lediglich die Wellenlänge die vom roten Gefieder reflektiert wird durchlässt.\\
 	\begin{itemize}
 	\item[b)] Welche Pixelzahl benötigt Ihr Sensor?
 	\end{itemize}
-	\text{Der Busch ist 10m Hoch. Ein Vogel hat eine ungefähre Größe von 10cm. Abschätzung: Der Vogel muss auf mindestens 100 Pixeln sichtbar sein, um sicher erkannt zu werden. Der Vogel nimmt also 1/100 der Höhe im Bild ein und soll auf 100 Pixeln sichtbar sein. Somit muss der Sensor vertikal 100*100=10000 Pixel haben. (Frage: Wie sieht es mit der Pixelbreite aus? Und habe ich wichtige Überlegungen vergessen?...)}\\
+	Der Busch ist 10m Hoch. Ein Buchfink im Schnitt 15cm groß. Abschätzung: Wenn wir davon ausgehen dass durch den Bandpassfilter nur Buchfinke erkannt werden, muss jeder Vogel auf mindestens 2 Pixel abgebildet werden (Nyquist Abtasttheorem). 10m geteilt durch die 15cm des Vogels ergibt den Faktor 667, welchen wir mit unserer minimalen Pixelzahl, also 2, multiplizieren. Damit kommen wir auf 1334 Pixel in der Höhe und auf eine Breite von 2001 Pixeln (da Kamerasensoren meist im Seitenverhältnis 3:2 gefertigt werden, auf die 36x24mm von 35mm Film zurückzuführen).\\
 	
 	\textbf{Sie haben 2 Sensoren zur Auswahl, einen S1 mit 1 Mikrometer großen, der andere S2 mit 5 Mikrometer Pixeln. Beantworten Sie folgende Fragen für jeweils beide Sensoren}\\
 	
@@ -59,31 +60,60 @@
 		\item[c)] Wie groß sind die beiden Sensoren jeweils?
 	\end{itemize}
 
-	\text{Der Sensor besteht aus 10000 Pixeln in die Höhe (bei Quadratischem Sensor auch 10000 Pixel in die Breite). Somit wäre der Sensor bei 1 Mikrometer Pixelgröße 10000*0,001mm=10mm hoch \& breit. Bei einer Pixelgröße von 5 Mikrometern wäre der Pixel 10000*0,005mm=50mm hoch \& breit.}
+	Sensor 1: 2001 Pixel breit und 1334 Pixel hoch, multipliziert mit 0.001mm, ergibt 2x1.3mm.\\
+	Sensor 2: multipliziert mit 0.005mm, ergibt 10x6.67mm.\\
+	
+	Da wir nur auf wenige Pixel abbilden, kommen wir mit einer sehr niedrigen Auflösung zurecht. Bei gegebener Pixelgröße fallen allerdings die Sensoren unrealistisch klein aus. Es würde sich anbieten größere Pixel zu verwenden, mit höherer Full-Well-Capacity. Durch den damit gewonnenen Dynamikumfang lassen sich die Buchfinke noch besser von der Umgebung trennen.
 	
 	\begin{itemize}
 		\item[d)] Bestimmen Sie den Abbildungsmaßstab für den jeweiligen Sensor
 	\end{itemize}
 
+	Die Gegenstandsgröße G beträgt 15cm, die Bildgröße je nach Sensor 2 Pixel multipliziert mit 0.001mm, bzw 0.005mm. Wir erhalten also mit ß = B/G einen Maßstab für:\\
+	Sensor 1: ß = 0.002mm / 150mm = 1.3e-5 mm\\
+	Sensor 2: ß = 0.01mm / 150mm = 6.7e-5 mm\\
+
 	\begin{itemize}
 	\item[e)] Bestimmen Sie die jeweils benötigte Brennweite des Objektivs
 	\end{itemize}
 
+	1/f = 1/b + 1/g. Die Bildweite b erhalten wir durch das Multiplizieren des Maßstabs ß mit der Gegenstandsweite g. Mit der Bildweite lässt sich dann die Brennweite berechnen:\\
+	\\
+	Sensor 1: b = 10m * 1.3e-5 mm = 0.13mm\\
+	1/f = 1/0.13mm + 1/30m $\rightarrow$ f = 0.13mm\\
+	\\
+	Sensor 2: b = 10m * 6.7e-5 mm = 0.67mm\\
+	1/f = 1/0.67mm + 1/30m $\rightarrow$ f = 0.67mm\\
+
+	Aufgrund der kleinen Sensorgröße erhalten wir sehr kurze Brennweiten.\\
+
 	\begin{itemize}
 	\item[f)] Welche Blendenzahl müssen die Objektive mindestens haben?
 	\end{itemize}
+
+	Sensor 1: Bildgröße 0.002µm/1,34µm = 0.0015\\
+	Sensor 2: Bildgröße 0.01µm/1,34µm = 0.0075\\
 
 	\begin{itemize}
 	\item[g)] Welche Blendenöffnung (Durchmesser Eintrittspupille) müssen die Objektive mindestens
 	haben?
 	\end{itemize}
 
+	Die Formel K=f/D lässt sich nach D umstellen: D=f/K.\\
+	Sensor 1: D = 0.13mm / 0.0015 = 86,6mm\\
+	Sensor 2: D = 0.67mm / 0.0075 = 89.3mm\\
+
+	Um den Vogel auf zwei Pixel abzubilden ist ein hohes optisches Auflösungsvermögen notwendig.\\
+
 	\begin{itemize}
 	\item[h)] Wie unterscheiden sich die beiden Objektive in Bezug auf Anforderungen
 		\begin{itemize}
 			\item[1.)] optische Qualität/MTF
+			Beide Objektive wären so nicht herstellbar. Es wäre vernünftiger auf eine größere Menge Pixel abzubilden.
 			\item[2.)] Baugröße (Durchmesser und Länge)
+			Für die Aufgabe ist keine große Auflösung von Nöten, daher auch kein großes optisches Auflösungsvermögen. Wird ein Sensor mit adäquater Pixelgröße gewählt, so sind Objektive mit Standardmaßen ausreichend für die Aufgabe.
 			\item[3.)] Bildkreisdurchmesser
+			Aufgrund der großen Eintrittspupille wäre das projizierte Bild viel größer als die Sensorfläche.
 		\end{itemize}
 	\end{itemize}
 \end{document}
