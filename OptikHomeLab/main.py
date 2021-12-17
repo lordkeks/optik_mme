@@ -20,11 +20,11 @@ class ChartContainer:
 
 
 if __name__ == '__main__':
-    basepath = r"C:\Users\Milan\Documents\GitHub\optik_mme\mtf-capture\Cropped"
+    basepath = r"C:\Users\Milan\Documents\GitHub\optik_mme\mtf-capture\2teMessung\Cropped"
 
     # container = {"f2-8" : [], "f4": [], "f5-6": [],
     #              "f8": [], "f16": []}
-    container = {"25LP": [], "32LP": [], "50LP": [], "Referenz": []}
+    container = {"5LP": [], "10LP": [], "16LP": [], "25LP":[],"Referenz": []}
 
     for chart in os.listdir(basepath):
         lp, blende, pos = chart.split("_")
@@ -56,14 +56,14 @@ if __name__ == '__main__':
 plt.show()
 axes = plt.gca()
 axes.set_xlim(2.8, 16)
-axes.set_ylim(0, 60)
+axes.set_ylim(0, 100)
 
 
-for LP in ["25LP","32LP","50LP"]:
-    hl, = axes.plot([], [])
+for LP in ["5LP","10LP","16LP","25LP"]:
+    hl, = axes.plot([], [],'--x')
     for inner in container[LP]:
 
-        if inner["position"] == "bottom":
+        if inner["position"] == "center":
             xdata=np.append(hl.get_xdata(), inner["blende"])
             SortIdx=np.argsort(xdata)
 
@@ -79,7 +79,7 @@ for LP in ["25LP","32LP","50LP"]:
 
 
 plt.xticks([2.8,4,5.6,8,16])
-plt.legend(["25LP","32LP","50LP"])
+plt.legend(["5LP","10LP","16LP","25LP"])
 plt.title("MTF als Funktion der Blende\nUnten")
 plt.xlabel("Blende")
 plt.ylabel("Kontrast in %")
