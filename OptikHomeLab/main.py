@@ -65,7 +65,7 @@ for LP in LPs:
     hl, = axes.plot([], [],'--x')
     for inner in container[LP]:
 
-        if inner["position"] == "center":
+        if inner["position"] == "bottom":
             xdata=np.append(hl.get_xdata(), inner["blende"])
             SortIdx=np.argsort(xdata)
             for ref in container["Referenz"]:
@@ -81,7 +81,7 @@ for LP in LPs:
 
 plt.xticks([2.8,4,5.6,8,16])
 plt.legend(LPs)
-plt.title("MTF als Funktion der Blende\nMittig")
+plt.title("MTF als Funktion der Blende\nUnten")
 plt.xlabel("Blende")
 plt.ylabel("Kontrast in %")
 plt.grid()
