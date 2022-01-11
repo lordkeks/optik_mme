@@ -2,7 +2,7 @@
 """
 Created on Fri Jan  7 11:03:32 2022
 
-@author: Florian Osswald
+@author: Milan Kaiser
 """
 
 import matplotlib.pyplot as plt	# for plots
@@ -47,47 +47,7 @@ t_exp = t*1e-3
 u_p = 5.034e24 * A * E * t_exp * wellenlaenge
 
 'Bilder importieren'
-A_40_B_1000_1 = importimage('Test/A_40_B_1000_1.png')
-A_40_B_1000_2 = importimage('Test/A_40_B_1000_2.png')
-A_40_B_2000_1 = importimage('Test/A_40_B_2000_1.png')
-A_40_B_2000_2 = importimage('Test/A_40_B_2000_2.png')
-A_40_B_3000_1 = importimage('Test/A_40_B_3000_1.png')
-A_40_B_3000_2 = importimage('Test/A_40_B_3000_2.png')
-A_40_B_4000_1 = importimage('Test/A_40_B_4000_1.png')
-A_40_B_4000_2 = importimage('Test/A_40_B_4000_2.png')
-A_40_B_5000_1 = importimage('Test/A_40_B_5000_1.png')
-A_40_B_5000_2 = importimage('Test/A_40_B_5000_2.png')
-A_40_B_6000_1 = importimage('Test/A_40_B_6000_1.png')
-A_40_B_6000_2 = importimage('Test/A_40_B_6000_2.png')
-A_40_B_7000_1 = importimage('Test/A_40_B_7000_1.png')
-A_40_B_7000_2 = importimage('Test/A_40_B_7000_2.png')
-A_40_B_8000_1 = importimage('Test/A_40_B_8000_1.png')
-A_40_B_8000_2 = importimage('Test/A_40_B_8000_2.png')
-A_40_B_9000_1 = importimage('Test/A_40_B_9000_1.png')
-A_40_B_9000_2 = importimage('Test/A_40_B_9000_2.png')
-A_40_B_10000_1 = importimage('Test/A_40_B_10000_1.png')
-A_40_B_10000_2 = importimage('Test/A_40_B_10000_2.png')
-
-A_40_B_1000_ABG_1 = importimage('Test/A_40_B_1000_ABG_1.png')
-A_40_B_1000_ABG_2 = importimage('Test/A_40_B_1000_ABG_2.png')
-A_40_B_2000_ABG_1 = importimage('Test/A_40_B_2000_ABG_1.png')
-A_40_B_2000_ABG_2 = importimage('Test/A_40_B_2000_ABG_2.png')
-A_40_B_3000_ABG_1 = importimage('Test/A_40_B_3000_ABG_1.png')
-A_40_B_3000_ABG_2 = importimage('Test/A_40_B_3000_ABG_2.png')
-A_40_B_4000_ABG_1 = importimage('Test/A_40_B_4000_ABG_1.png')
-A_40_B_4000_ABG_2 = importimage('Test/A_40_B_4000_ABG_2.png')
-A_40_B_5000_ABG_1 = importimage('Test/A_40_B_4000_ABG_1.png')
-A_40_B_5000_ABG_2 = importimage('Test/A_40_B_4000_ABG_2.png')
-A_40_B_6000_ABG_1 = importimage('Test/A_40_B_4000_ABG_1.png')
-A_40_B_6000_ABG_2 = importimage('Test/A_40_B_4000_ABG_2.png')
-A_40_B_7000_ABG_1 = importimage('Test/A_40_B_7000_ABG_1.png')
-A_40_B_7000_ABG_2 = importimage('Test/A_40_B_7000_ABG_2.png')
-A_40_B_8000_ABG_1 = importimage('Test/A_40_B_8000_ABG_1.png')
-A_40_B_8000_ABG_2 = importimage('Test/A_40_B_8000_ABG_2.png')
-A_40_B_9000_ABG_1 = importimage('Test/A_40_B_9000_ABG_1.png')
-A_40_B_9000_ABG_2 = importimage('Test/A_40_B_9000_ABG_2.png')
-A_40_B_10000_ABG_1 = importimage('Test/A_40_B_10000_ABG_1.png')
-A_40_B_10000_ABG_2 = importimage('Test/A_40_B_10000_ABG_2.png')
+# Todo: Bilder hier reinimportieren -> Neue Aufnehmen mit verschiedenen Belichtungszeiten
 
 'Varianz Berechnen'
 # var = np.array([np.var(A_40_B_1000_2),np.var(A_40_B_2000_2),np.var(A_40_B_3000_2),np.var(A_40_B_4000_2),np.var(A_40_B_5000_2),np.var(A_40_B_6000_2),np.var(A_40_B_7000_2),np.var(A_40_B_8000_2),np.var(A_40_B_9000_2),np.var(A_40_B_10000_2)])
