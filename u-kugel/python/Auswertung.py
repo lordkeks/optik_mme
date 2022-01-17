@@ -9,12 +9,12 @@ Created on Fri Jan  7 11:03:32 2022
 #import os
 #from PIL import Image
 #import numpy as np
-#from scipy import stats
+from scipy import stats
 #from scipy.ndimage.filters import gaussian_filter
 import imageio
 #from os import listdir
 #from os.path import isfile, join
-
+import scipy as sc
 import numpy as np
 import os
 import matplotlib.pyplot as plt
@@ -34,12 +34,18 @@ if __name__ == '__main__':
     ## Aufgabe 1
     #'Parameter eingeben'
     A = 6.413e-3*4.589e-3               # Pixelfläche [m^2]
-    wellenlaenge = 700*10**-9   # Wellenlänge [m]
-    photonenstrom = {"00": 28e-6, "01": 26.7e-6, "02": 19.67e-6 , "02-2": 18.16e-6, "03":13.58e-6,"03-2": 10.12e-6, "04":7.56e-6,"04-2": 4.52e-6,"05": 3.72e-6,"05-2": 2.22e-6,"06": 1.92e-6,"07": 1.23e-6,"08": 1.05e-6,"09": 0.66e-6,"10": 0.3e-6,"11": 0.07e-6 }
-
-    E = 0.1                      # Bestrahlungsstärke [W/m^2]
+    wellenlaenge = 500e-9   # Wellenlänge [m]
+    
+    E = {"00": 28e-6, "01": 26.7e-6, "02": 19.67e-6 , "02-2": 15.16e-6, "03":13.58e-6,"03-2": 10.12e-6, "04":7.56e-6,"04-2": 4.52e-6,"05": 3.72e-6,"05-2": 2.22e-6,"06": 1.92e-6,"07": 1.23e-6,"08": 1.05e-6,"09": 0.66e-6,"10": 0.3e-6,"11": 0.07e-6 }
+    u_p = {"00": [], "01": [], "02": [], "02-2": [], "03":[],"03-2":[], "04":[],"04-2": [],"05": [],"05-2": [],"06": [],"07": [],"08": [],"09": [],"10": [],"11": []}
+    Kalibrierwert=3.352e-9      # A/lux
     t_exp = 7*1e-3  	 # Belichtungszeit [s]
-    u_p = 5.034e24 * A * E * t_exp * wellenlaenge
+    kmax_skoptisch=1699
+    V=0.28e9
+    for shit in E:
+        E[shit]=E[shit]/(Kalibrierwert*kmax_skoptisch*V)
+        u_p[shit]= 5.034e24 * A * E[shit] * t_exp * wellenlaenge
+        
     
     #Bilder einlesen
     basepath = r"C:\Users\Milan\Documents\GitHub\optik_mme\u-kugel\Capture"
@@ -59,7 +65,9 @@ if __name__ == '__main__':
         inner = {
             "picture": picture,
             "rawdata": data,
-            "photonenstrom":photonenstrom[picture]
+            "mittelgrau": np.mean(data),
+            "E":E[picture],
+            "up":u_p[picture]
             
             #"stdev": data.std(),
         }
@@ -67,8 +75,25 @@ if __name__ == '__main__':
         container[picture].append(inner)
 
 
-        
-        
+    plt.show()
+    axes = plt.gca()
+
+
+    x_neu=[]
+    delta_u=[]
+    for picture in container:
+       
+        axes.plot(container[picture][0]['up'], container[picture][0]['mittelgrau'],'bx')
+        x_neu.append(container[picture][0]['up'])
+        delta_u.append(container[picture][0]['mittelgrau'])
+    x_sens = np.linspace(7000,25,100)
+    linreg = np.poly1d(np.polyfit(x_neu[2:-1],delta_u[2:-1],1))
+    axes.plot(x_sens,linreg(x_sens),'--k')
+    
+    plt.title("Sensitivität")
+    plt.xlabel("irridation (photons/pixel)")
+    plt.ylabel("gray value - dark value (DN)")   
+    plt.grid('on')
 #    'Mittlerer Grauwert'
 #    'Helldbilder'
     u_y = np.zeros(10)
