@@ -47,17 +47,17 @@ def Gauss(x, A, B):
 
 ## Aufgabe 1
 'Parameter eingeben'
-A = 23.04e-12               # Pixelfläche [m^2]
-wellenlaenge = 460*10**-9   # Wellenlänge [m]
+A = 1.67e-6*1.67e-6               # Pixelfläche [m^2]
+wellenlaenge = 475e-9   # Wellenlänge [m]
 t = np.array([1,2,3,4,5,6,7,8,9,10]) # Belichtungszeit [ms]
 t_exp = t*1e-3
 
 Kalibrierfaktor = 3.166e-10
-Beleuchtungsstaerke = 0.531e-6 / Kalibrierfaktor
+Beleuchtungsstaerke = 7.6-6 / Kalibrierfaktor
 kmax_skoptisch = 1699
 v_skoptisch = 0.58
 E = Beleuchtungsstaerke / kmax_skoptisch / v_skoptisch
-
+print(E)
 # E = 0.1                      # Bestrahlungsstärke [W/m^2]
 
 u_p = 5.034e24 * A * E * t_exp * wellenlaenge
