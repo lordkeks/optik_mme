@@ -3,7 +3,7 @@
 """
 Created on Fri Jan  7 11:03:32 2022
 
-@author: Florian Osswald
+@author: Milan Kaiser
 """
 ## MIT BILDERN U-KUGEL
 
@@ -14,6 +14,7 @@ from scipy import stats
 import scipy as sp
 from scipy.ndimage.filters import gaussian_filter
 import imageio
+import os
 from os import listdir
 from os.path import isfile, join
 from scipy.optimize import curve_fit
@@ -52,58 +53,62 @@ wellenlaenge = 475e-9   # Wellenlänge [m]
 t = np.array([1,2,3,4,5,6,7,8,9,10]) # Belichtungszeit [ms]
 t_exp = t*1e-3
 
-Kalibrierfaktor = 3.166e-10
-Beleuchtungsstaerke = 7.6-6 / Kalibrierfaktor
-kmax_skoptisch = 1699
-v_skoptisch = 0.58
+Kalibrierfaktor =3.352e-9 # in A/lx
+Beleuchtungsstaerke = 7.82e-6 / Kalibrierfaktor     # in lx
+kmax_skoptisch = 1699           # lm/W
+v_skoptisch = 0.24 #0.58
 E = Beleuchtungsstaerke / kmax_skoptisch / v_skoptisch
-print(E)
+print("Beleuchtungsstärke: " + str(E))
 # E = 0.1                      # Bestrahlungsstärke [W/m^2]
 
 u_p = 5.034e24 * A * E * t_exp * wellenlaenge
 
 'Bilder importieren'
-A_40_B_1000_1 = importimage('Test_neu/A_40_B_100_1.png')
-A_40_B_1000_2 = importimage('Test_neu/A_40_B_100_2.png')
-A_40_B_2000_1 = importimage('Test_neu/A_40_B_200_1.png')
-A_40_B_2000_2 = importimage('Test_neu/A_40_B_200_2.png')
-A_40_B_3000_1 = importimage('Test_neu/A_40_B_300_1.png')
-A_40_B_3000_2 = importimage('Test_neu/A_40_B_300_2.png')
-A_40_B_4000_1 = importimage('Test_neu/A_40_B_400_1.png')
-A_40_B_4000_2 = importimage('Test_neu/A_40_B_400_2.png')
-A_40_B_5000_1 = importimage('Test_neu/A_40_B_500_1.png')
-A_40_B_5000_2 = importimage('Test_neu/A_40_B_500_2.png')
-A_40_B_6000_1 = importimage('Test_neu/A_40_B_600_1.png')
-A_40_B_6000_2 = importimage('Test_neu/A_40_B_600_2.png')
-A_40_B_7000_1 = importimage('Test_neu/A_40_B_700_1.png')
-A_40_B_7000_2 = importimage('Test_neu/A_40_B_700_2.png')
-A_40_B_8000_1 = importimage('Test_neu/A_40_B_800_1.png')
-A_40_B_8000_2 = importimage('Test_neu/A_40_B_800_2.png')
-A_40_B_9000_1 = importimage('Test_neu/A_40_B_900_1.png')
-A_40_B_9000_2 = importimage('Test_neu/A_40_B_900_2.png')
-A_40_B_10000_1 = importimage('Test_neu/A_40_B_1000_1.png')
-A_40_B_10000_2 = importimage('Test_neu/A_40_B_1000_2.png')
+basepath=r"..\neu\hell"
+A_40_B_1000_1 = importimage(os.path.join(basepath, '1_1.bmp'))
+A_40_B_1000_2 = importimage(os.path.join(basepath, '1_2.bmp'))
+A_40_B_2000_1 = importimage(os.path.join(basepath, '2_1.bmp'))
+A_40_B_2000_2 = importimage(os.path.join(basepath, '2_2.bmp'))
+A_40_B_3000_1 = importimage(os.path.join(basepath, '3_1.bmp'))
+A_40_B_3000_2 = importimage(os.path.join(basepath, '3_2.bmp'))
+A_40_B_4000_1 = importimage(os.path.join(basepath, '4_1.bmp'))
+A_40_B_4000_2 = importimage(os.path.join(basepath, '4_2.bmp'))
+A_40_B_5000_1 = importimage(os.path.join(basepath, '5_1.bmp'))
+A_40_B_5000_2 = importimage(os.path.join(basepath, '5_2.bmp'))
+A_40_B_6000_1 = importimage(os.path.join(basepath, '6_1.bmp'))
+A_40_B_6000_2 = importimage(os.path.join(basepath, '6_2.bmp'))
+A_40_B_7000_1 = importimage(os.path.join(basepath, '7_1.bmp'))
+A_40_B_7000_2 = importimage(os.path.join(basepath, '7_2.bmp'))
+A_40_B_8000_1 = importimage(os.path.join(basepath, '8_1.bmp'))
+A_40_B_8000_2 = importimage(os.path.join(basepath, '8_2.bmp'))
+A_40_B_9000_1 = importimage(os.path.join(basepath, '9_1.bmp'))
+A_40_B_9000_2 = importimage(os.path.join(basepath, '9_2.bmp'))
+A_40_B_10000_1 = importimage(os.path.join(basepath, '10_1.bmp'))
+A_40_B_10000_2 = importimage(os.path.join(basepath, '10_2.bmp'))
 
-A_40_B_1000_ABG_1 = importimage('Test_neu/A_40_B_100_ABG_1.png')
-A_40_B_1000_ABG_2 = importimage('Test_neu/A_40_B_100_ABG_2.png')
-A_40_B_2000_ABG_1 = importimage('Test_neu/A_40_B_200_ABG_1.png')
-A_40_B_2000_ABG_2 = importimage('Test_neu/A_40_B_200_ABG_2.png')
-A_40_B_3000_ABG_1 = importimage('Test_neu/A_40_B_300_ABG_1.png')
-A_40_B_3000_ABG_2 = importimage('Test_neu/A_40_B_300_ABG_2.png')
-A_40_B_4000_ABG_1 = importimage('Test_neu/A_40_B_400_ABG_1.png')
-A_40_B_4000_ABG_2 = importimage('Test_neu/A_40_B_400_ABG_2.png')
-A_40_B_5000_ABG_1 = importimage('Test_neu/A_40_B_500_ABG_1.png')
-A_40_B_5000_ABG_2 = importimage('Test_neu/A_40_B_500_ABG_2.png')
-A_40_B_6000_ABG_1 = importimage('Test_neu/A_40_B_600_ABG_1.png')
-A_40_B_6000_ABG_2 = importimage('Test_neu/A_40_B_600_ABG_2.png')
-A_40_B_7000_ABG_1 = importimage('Test_neu/A_40_B_700_ABG_1.png')
-A_40_B_7000_ABG_2 = importimage('Test_neu/A_40_B_700_ABG_2.png')
-A_40_B_8000_ABG_1 = importimage('Test_neu/A_40_B_800_ABG_1.png')
-A_40_B_8000_ABG_2 = importimage('Test_neu/A_40_B_800_ABG_2.png')
-A_40_B_9000_ABG_1 = importimage('Test_neu/A_40_B_900_ABG_1.png')
-A_40_B_9000_ABG_2 = importimage('Test_neu/A_40_B_900_ABG_2.png')
-A_40_B_10000_ABG_1 = importimage('Test_neu/A_40_B_1000_ABG_1.png')
-A_40_B_10000_ABG_2 = importimage('Test_neu/A_40_B_1000_ABG_2.png')
+basepath=r"..\neu\dunkel"
+
+A_40_B_1000_ABG_1 = importimage(os.path.join(basepath, '1_1.bmp'))
+A_40_B_1000_ABG_2 = importimage(os.path.join(basepath, '1_2.bmp'))
+A_40_B_2000_ABG_1 = importimage(os.path.join(basepath, '2_1.bmp'))
+A_40_B_2000_ABG_2 = importimage(os.path.join(basepath, '2_2.bmp'))
+A_40_B_3000_ABG_1 = importimage(os.path.join(basepath, '3_1.bmp'))
+A_40_B_3000_ABG_2 = importimage(os.path.join(basepath, '3_2.bmp'))
+A_40_B_4000_ABG_1 = importimage(os.path.join(basepath, '4_1.bmp'))
+A_40_B_4000_ABG_2 = importimage(os.path.join(basepath, '4_2.bmp'))
+A_40_B_5000_ABG_1 = importimage(os.path.join(basepath, '5_1.bmp'))
+A_40_B_5000_ABG_2 = importimage(os.path.join(basepath, '5_2.bmp'))
+A_40_B_6000_ABG_1 = importimage(os.path.join(basepath, '6_1.bmp'))
+A_40_B_6000_ABG_2 = importimage(os.path.join(basepath, '6_2.bmp'))
+A_40_B_7000_ABG_1 = importimage(os.path.join(basepath, '7_1.bmp'))
+A_40_B_7000_ABG_2 = importimage(os.path.join(basepath, '7_2.bmp'))
+A_40_B_8000_ABG_1 = importimage(os.path.join(basepath, '8_1.bmp'))
+A_40_B_8000_ABG_2 = importimage(os.path.join(basepath, '8_2.bmp'))
+A_40_B_9000_ABG_1 = importimage(os.path.join(basepath, '9_1.bmp'))
+A_40_B_9000_ABG_2 = importimage(os.path.join(basepath, '9_2.bmp'))
+A_40_B_10000_ABG_1 = importimage(os.path.join(basepath, '10_1.bmp'))
+A_40_B_10000_ABG_2 = importimage(os.path.join(basepath, '10_2.bmp'))
+
 
 'Mittlerer Grauwert'
 'Helldbilder'
@@ -164,9 +169,9 @@ delta_u = u_y-u_y_dark
 delta_s = s_y-s_y_dark
 
 'Sensitivitätskurve Plotten'
-plt.plot(u_p, delta_u,'+', label='Data')
-x_sens = np.linspace(1,1000000,10)
-res_sens = stats.linregress(u_p, delta_u)
+plt.plot(u_p, delta_u,'o', label='Data')
+x_sens = np.linspace(1,400000,10)
+res_sens = stats.linregress(u_p[0:7], delta_u[0:7])
 plt.plot(x_sens,res_sens.intercept + res_sens.slope*x_sens, label='fit')
 plt.title('Sensitivität (U-Kugel)')
 plt.xlabel('irradiation in photons/pixel')
@@ -178,7 +183,7 @@ plt.grid()
 plt.show()
 
 'Photonentransferkurve Plotten'
-plt.plot(delta_u,delta_s,'+', label='Data')
+plt.plot(delta_u,delta_s,'o', label='Data')
 x_photo = np.linspace(1,230,10)
 res_sens = stats.linregress(delta_u[:7],delta_s[:7])
 plt.plot(x_photo,res_sens.intercept + res_sens.slope*x_photo, label='fit')
@@ -208,7 +213,7 @@ print('σ_d = ', + s_d)
 'SNR-Kurve'
 SNR = (eta * u_p)/np.sqrt(s_d+s_q/K**2 + eta * u_p)
 'Data plotten:'
-plt.loglog(u_p,SNR,'+', label='Data')
+plt.loglog(u_p,SNR,'o', label='Data')
 x_snr = np.linspace(1,np.max(u_p),1000)
 'theor. limit plotten:'
 plt.loglog(x_snr,np.sqrt(x_snr), label='theor. limit')
@@ -235,18 +240,18 @@ plt.show()
 
 ## Aufgabe 3
 'Importieren der Bilder'
-path_img_bright = 'Test_Aufgabe_3_neu/Hell/'
-path_img_dark = 'Test_Aufgabe_3_neu/Dunkel/'
-imgnames_bright = [f for f in listdir(path_img_bright) if isfile(join(path_img_bright, f))]
-imgnames_dark = [f for f in listdir(path_img_dark) if isfile(join(path_img_dark, f))]
+path_img_bright = r"..\neu\hell"
+path_img_dark = r"..\neu\dunkel"
+imgnames_bright = [f for f in listdir(path_img_bright) if isfile(os.path.join(path_img_bright, f))]
+imgnames_dark = [f for f in listdir(path_img_dark) if isfile(os.path.join(path_img_dark, f))]
 
 A3_bright = []
 A3_dark = []
 
 for name in imgnames_bright:
-     A3_bright.append(importimage(path_img_bright + name))
+     A3_bright.append(importimage(os.path.join(path_img_bright, name)))
 for name in imgnames_dark:
-     A3_dark.append(importimage(path_img_dark + name))
+     A3_dark.append(importimage(os.path.join(path_img_dark, name)))
 
 'Dunkelbild'
 y_dark = np.zeros(A3_dark[0].shape)
@@ -306,8 +311,8 @@ freq = np.fft.fftfreq(Y_m_v_dark.shape[-1])[:320]
 
 plt.plot(freq,np.abs(p_v_m_dark),label='Spektrogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.5)
-plt.ylim(ymax=1000, ymin=0.0001)
+plt.xlim(xmin=0, xmax=0.1)
+plt.ylim(ymax=100, ymin=0.01)
 plt.title('Horizontales Spektroggramm DSNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in DN')
@@ -329,8 +334,8 @@ p_v_m_bright = p_v_m_bright/u_y_50_A3
 
 plt.plot(freq,np.abs(p_v_m_bright),label='Spektogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.5)
-plt.ylim(ymax=1000, ymin=0.01)
+plt.xlim(xmin=0, xmax=0.1)
+plt.ylim(ymax=100, ymin=0.01)
 plt.title('Horizontales Spektroggramm PRNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in %')
@@ -350,8 +355,11 @@ freq = np.fft.fftfreq(Y_n_v_dark.shape[0])[:240]
 
 plt.plot(freq,np.abs(p_v_n_dark), label='Spektogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.5)
-plt.ylim(ymax=10, ymin=0.0001)
+
+#plt.ylim(ymax=10, ymin=0.0001)
+
+plt.autoscale()
+plt.xlim(xmin=0, xmax=0.1)
 plt.title('Vertikales Spektroggramm DSNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in DN')
@@ -371,7 +379,7 @@ freq = np.fft.fftfreq(Y_n_v_bright.shape[0])[:240]
 
 plt.plot(freq,np.abs(p_v_n_bright), label='Spektogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.5)
+plt.xlim(xmin=0, xmax=0.1)
 plt.ylim(ymax=1000, ymin=0.01)
 plt.title('Vertikales Spektroggramm PRNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
