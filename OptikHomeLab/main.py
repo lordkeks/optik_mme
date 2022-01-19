@@ -20,15 +20,17 @@ class ChartContainer:
 
 
 if __name__ == '__main__':
-    basepath = r"C:\Users\Milan\Documents\GitHub\optik_mme\mtf-capture\Cropped"
+    basepath = r"C:\Users\Milan\Documents\GitHub\optik_mme\mtf-capture\2teMessung\Cropped"
 
     # container = {"f2-8" : [], "f4": [], "f5-6": [],
     #              "f8": [], "f16": []}
-    container = {"25LP": [], "32LP": [], "50LP": [], "Referenz": []}
+    container = {"5LP": [], "10LP": [], "16LP": [], "25LP":[],"32LP":[], "50LP":[],"Referenz": []}
 
     for chart in os.listdir(basepath):
         lp, blende, pos = chart.split("_")
         data = cv2.imread(os.path.join(basepath, chart))
+        
+        
 
 
         inner = {
@@ -56,35 +58,35 @@ if __name__ == '__main__':
 plt.show()
 axes = plt.gca()
 axes.set_xlim(2.8, 16)
-axes.set_ylim(0, 60)
+axes.set_ylim(0, 150)
+LPs=["5LP","10LP","16LP","25LP"];
 
-
-for LP in ["25LP","32LP","50LP"]:
-    hl, = axes.plot([], [])
+for LP in LPs:
+    hl, = axes.plot([], [],'--x')
     for inner in container[LP]:
 
         if inner["position"] == "bottom":
             xdata=np.append(hl.get_xdata(), inner["blende"])
             SortIdx=np.argsort(xdata)
-
             for ref in container["Referenz"]:
                 if ref["blende"] == inner["blende"]:
                     curref =ref["stdev"]/100
                     break
 
             hl.set_xdata(xdata[SortIdx])
-            hl.set_ydata(np.append(hl.get_ydata(), inner["stdev"]/curref)[SortIdx])
+            hl.set_ydata(np.append(hl.get_ydata(), (inner["stdev"]/curref))[SortIdx])
 
         # plt.draw()
 
 
 plt.xticks([2.8,4,5.6,8,16])
-plt.legend(["25LP","32LP","50LP"])
+plt.legend(LPs)
 plt.title("MTF als Funktion der Blende\nUnten")
 plt.xlabel("Blende")
 plt.ylabel("Kontrast in %")
 plt.grid()
-plt.savefig("MTF_Unten.png",dpi=600)
+plt.savefig("MTF_Mitte.png",dpi=600)
 plt.show()
+
 
 

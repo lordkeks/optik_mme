@@ -1,0 +1,2 @@
+Photonenstrom
+-7,82µA (mit eingeschaltetem Licht)
