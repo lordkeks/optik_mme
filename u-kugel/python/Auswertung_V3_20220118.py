@@ -202,12 +202,13 @@ R = stats.linregress(u_p[:7], delta_u[:7])[0]
 K = stats.linregress(delta_u[:7], delta_s[:7])[0]
 eta = R/K
 s_q = 1/12
-s_d = np.abs((s_y_dark[0]-s_q))/K**2
+#s_d = np.abs((s_y_dark[0]-s_q))/K**2
+s_d= np.abs((s_y_dark[0]-s_q)/K**2)
 'Kennwerte ausgeben'
 print('R = ', + R)
 print('K = ', + K)
 print('eta = ', eta*100,'%')
-print('σ_d = ', + s_d)
+print('σ^2_d = ', + s_d)
 
 ## Aufgabe 2
 'SNR-Kurve'
@@ -232,6 +233,8 @@ plt.vlines(x=u_pmin, ymin=0, ymax=10000, color='black', linestyles='--')
 plt.text(u_pmin,0.5,'threshold',rotation=90)
 DR = 20 * np.log10(u_p[8]/u_pmin)
 
+print("DR = ",  DR, " dB")
+
 'Fit plotten'
 snr_fit = (eta * x_snr)/np.sqrt(s_d+s_q/K**2 + eta * x_snr)
 plt.loglog(x_snr, snr_fit, label='fit')
@@ -240,8 +243,8 @@ plt.show()
 
 ## Aufgabe 3
 'Importieren der Bilder'
-path_img_bright = r"..\neu\hell"
-path_img_dark = r"..\neu\dunkel"
+path_img_bright = r"..\neu\raeumliche_inhomo\hell"
+path_img_dark = r"..\neu\raeumliche_inhomo\dunkel"
 imgnames_bright = [f for f in listdir(path_img_bright) if isfile(os.path.join(path_img_bright, f))]
 imgnames_dark = [f for f in listdir(path_img_dark) if isfile(os.path.join(path_img_dark, f))]
 
@@ -259,15 +262,23 @@ for i in range(16) :
     y_dark = y_dark + A3_dark[i]
 y_dark = y_dark/16
 
+plt.imshow(y_dark,cmap='gray')
+plt.show()
+
 'Hellbild'
 y_50 = np.zeros(A3_bright[0].shape)
 for i in range(16) : 
     y_50 = y_50 + A3_bright[i]
 y_50 = y_50/16
 
+
+plt.imshow(y_50,cmap='gray')
+plt.show()
+w=3840
+h=2748
 'Kennzahlen für räumliche Inhomogenität'
-s_ydark_2 = 1/(480*640-1) * np.sum((y_dark - np.mean(y_dark))**2)
-s_y50_2 = 1/(480*640-1) * np.sum((y_50 - np.mean(y_50))**2)
+s_ydark_2 = 1/(w*h-1) * np.sum((y_dark - np.mean(y_dark))**2)
+s_y50_2 = 1/(w*h-1) * np.sum((y_50 - np.mean(y_50))**2)
 
 'pixelweise zeitliche Rauschvarianz'
 sigma_s_2_bright = np.zeros(A3_bright[0].shape)
@@ -300,19 +311,22 @@ print('PRNU = ', PRNU*100,'%')
 y_dark_norm = y_dark - np.mean(y_dark)
 y_50_norm = y_50 - np.mean(y_50)
 
+
 'Horizontales Spektroggramm DSNU'
 Y_m_v_dark = np.fft.fft(y_dark_norm, axis=0)
 p_v_m_dark = np.zeros(Y_m_v_dark.shape[1])
 for i in range(Y_m_v_dark.shape[0]):
     p_v_m_dark = p_v_m_dark + (Y_m_v_dark[i,:] * np.transpose(np.conj(Y_m_v_dark[i,:])))
 
-p_v_m_dark = np.sqrt(p_v_m_dark * 1/Y_m_v_dark.shape[0])[:320]
-freq = np.fft.fftfreq(Y_m_v_dark.shape[-1])[:320]
+p_v_m_dark = np.sqrt(p_v_m_dark * 1/Y_m_v_dark.shape[0])#[:320]
+freq = np.fft.fftfreq(Y_m_v_dark.shape[-1])#[:320]
 
 plt.plot(freq,np.abs(p_v_m_dark),label='Spektrogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.1)
-plt.ylim(ymax=100, ymin=0.01)
+
+#plt.ylim(ymax=100, ymin=0.01)
+plt.autoscale()
+plt.xlim(xmin=0, xmax=1)
 plt.title('Horizontales Spektroggramm DSNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in DN')
@@ -327,15 +341,16 @@ p_v_m_bright = np.zeros(Y_m_v_bright.shape[1])
 for i in range(Y_m_v_bright.shape[0]):
     p_v_m_bright = p_v_m_bright + (Y_m_v_bright[i,:] * np.transpose(np.conj(Y_m_v_bright[i,:])))
 
-p_v_m_bright = np.sqrt(p_v_m_bright * 1/Y_m_v_bright.shape[0])[:320]
-freq = np.fft.fftfreq(Y_m_v_bright.shape[-1])[:320]
+p_v_m_bright = np.sqrt(p_v_m_bright * 1/Y_m_v_bright.shape[0])#[:320]
+freq = np.fft.fftfreq(Y_m_v_bright.shape[-1])#[:320]
 
 p_v_m_bright = p_v_m_bright/u_y_50_A3
 
 plt.plot(freq,np.abs(p_v_m_bright),label='Spektogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.1)
-plt.ylim(ymax=100, ymin=0.01)
+plt.autoscale()
+plt.xlim(xmin=0, xmax=1)
+#plt.ylim(ymax=100, ymin=0.01)
 plt.title('Horizontales Spektroggramm PRNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in %')
@@ -350,8 +365,8 @@ p_v_n_dark = np.zeros(Y_n_v_dark.shape[0])
 for i in range(Y_n_v_dark.shape[1]):
     p_v_n_dark = p_v_n_dark + (Y_n_v_dark[:,i] * np.transpose(np.conj(Y_n_v_dark[:,i])))
 
-p_v_n_dark = np.sqrt(p_v_n_dark * 1/Y_n_v_dark.shape[0])[:240]
-freq = np.fft.fftfreq(Y_n_v_dark.shape[0])[:240]
+p_v_n_dark = np.sqrt(p_v_n_dark * 1/Y_n_v_dark.shape[0])#[:240]
+freq = np.fft.fftfreq(Y_n_v_dark.shape[0])#[:240]
 
 plt.plot(freq,np.abs(p_v_n_dark), label='Spektogramm')
 plt.yscale('log')
@@ -359,7 +374,7 @@ plt.yscale('log')
 #plt.ylim(ymax=10, ymin=0.0001)
 
 plt.autoscale()
-plt.xlim(xmin=0, xmax=0.1)
+plt.xlim(xmin=0, xmax=1)
 plt.title('Vertikales Spektroggramm DSNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in DN')
@@ -374,13 +389,14 @@ p_v_n_bright = np.zeros(Y_n_v_bright.shape[0])
 for i in range(Y_n_v_bright.shape[1]):
     p_v_n_bright = p_v_n_bright + (Y_n_v_bright[:,i] * np.transpose(np.conj(Y_n_v_bright[:,i])))
 
-p_v_n_bright = np.sqrt(p_v_n_bright * 1/Y_n_v_bright.shape[0])[:240]
-freq = np.fft.fftfreq(Y_n_v_bright.shape[0])[:240]
+p_v_n_bright = np.sqrt(p_v_n_bright * 1/Y_n_v_bright.shape[0])#[:240]
+freq = np.fft.fftfreq(Y_n_v_bright.shape[0])#[:240]
 
 plt.plot(freq,np.abs(p_v_n_bright), label='Spektogramm')
 plt.yscale('log')
-plt.xlim(xmin=0, xmax=0.1)
-plt.ylim(ymax=1000, ymin=0.01)
+plt.autoscale()
+plt.xlim(xmin=0, xmax=1)
+#plt.ylim(ymax=1000, ymin=0.01)
 plt.title('Vertikales Spektroggramm PRNU (U-Kugel)')
 plt.xlabel('frequency in cycles/pixel')
 plt.ylabel('standard deviation in %')
