@@ -472,6 +472,27 @@ circle3 = plt.Circle((np.where(defect_pixel<-13.8)[1][1],np.where(defect_pixel<-
 circle4 = plt.Circle((np.where(defect_pixel>13.25)[1][1],np.where(defect_pixel>13.25)[0][1]), 10, color='r', fill=False)
 
 
+
+lowpass_img_dark = gaussian_filter(y_dark_norm, sigma=13)
+highpass_img_dark = y_dark - lowpass_img_dark
+highpass_img_dark = highpass_img_dark + np.abs(np.min(highpass_img_dark))
+
+
+hot_stuck_pixel = highpass_img_dark - np.mean(y_dark)
+circledark = plt.Circle((np.where(hot_stuck_pixel>9)[1][0],np.where(hot_stuck_pixel>9)[0][0]), 10, color='r', fill=False)
+circledark1 = plt.Circle((np.where(hot_stuck_pixel>9)[1][1],np.where(hot_stuck_pixel>9)[0][1]), 10, color='r', fill=False)
+circledark2 = plt.Circle((np.where(hot_stuck_pixel>9)[1][2],np.where(hot_stuck_pixel>9)[0][2]), 10, color='r', fill=False)
+
+
+fig, ax = plt.subplots()
+fig = plt.imshow(y_dark_norm, cmap='gray')
+ax.add_patch(circledark)
+ax.add_patch(circledark1)
+ax.add_patch(circledark2)
+plt.show()
+
+
+
 fig, ax = plt.subplots()
 fig = plt.imshow(y_50_norm, cmap='gray')
 ax.add_patch(circle1)
@@ -479,6 +500,11 @@ ax.add_patch(circle2)
 ax.add_patch(circle3)
 ax.add_patch(circle4)
 plt.show()
+
+
+
+
+
 
 # Aufgabe 5
 
@@ -502,18 +528,6 @@ def interpolat_dark_image(y_dark_t1, y_dark_t2, t1, t2, texp):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 'Dunkel- und Hellbilder importieren'
 # y_dark_t4500 = getdarkorwhiteimg('Test_Aufgabe_5_neu/Dunkelbild/B_50/')
 # y_dark_t1000 = getdarkorwhiteimg('Test_Aufgabe_5_neu/Dunkelbild/B_5000/')
@@ -523,8 +537,10 @@ def interpolat_dark_image(y_dark_t1, y_dark_t2, t1, t2, texp):
 ydark_2 = importimage(r"C:\Users\ruwen\Desktop\optik_mme\u-kugel\neu\aufgabe5\dunkel_belichtungszeit_0408ms.bmp")
 
 'Dunkelbild interpolieren'
-y_dark_texp = interpolat_dark_image(y_dark, ydark_2, 5000, 408, 40000)
+y_dark_texp = interpolat_dark_image(y_dark, ydark_2, 11000, 408, 40000)
 
+plt.imshow(y_dark_texp, cmap="gray")
+plt.show()
 
 # y_dark_texp = interpolat_dark_image(y_dark_t4500, y_dark_t1000, 50, 5000, 200000)
 
@@ -537,12 +553,23 @@ y = importimage(r'C:\Users\ruwen\Desktop\optik_mme\u-kugel\neu\aufgabe5\testbild
 yi = np.mean(y_50i) * (y - y_dark_texp) / y_50i
 
 
+
+# fig, ax = plt.subplots(2)
+# ax[0].imshow(y, cmap='gray')
+# ax[1].imshow(yi, cmap='gray')
+# plt.show()
+
+
+
+
 plt.figure(30)
 # Nicht Korrigiert
 plt.imshow(y, cmap='gray')
+plt.imsave("unkali.png", y, cmap="gray")
 plt.show()
 plt.figure(31)
 # Korrigiert
 plt.imshow(yi, cmap='gray')
+plt.imsave("kali.png", yi, cmap="gray")
 plt.show()
 
