@@ -169,32 +169,34 @@ delta_u = u_y-u_y_dark
 delta_s = s_y-s_y_dark
 
 'Sensitivitätskurve Plotten'
-# plt.plot(u_p, delta_u,'o', label='Data')
-# x_sens = np.linspace(1,400000,10)
-# res_sens = stats.linregress(u_p[0:7], delta_u[0:7])
-# plt.plot(x_sens,res_sens.intercept + res_sens.slope*x_sens, label='fit')
-# plt.title('Sensitivität (U-Kugel)')
-# plt.xlabel('irradiation in photons/pixel')
-# plt.ylabel('gray value - dark value µ_y−µ_ydark')
-# plt.xlim(xmin=0)
-# plt.ylim(ymin=0)
-# plt.legend()
-# plt.grid()
-# plt.show()
+plt.plot(u_p, delta_u,'o', label='Data')
+x_sens = np.linspace(1,400000,10)
+res_sens = stats.linregress(u_p[0:7], delta_u[0:7])
+plt.plot(x_sens,res_sens.intercept + res_sens.slope*x_sens, label='fit')
+plt.title('Sensitivität (U-Kugel)')
+plt.xlabel('irradiation in photons/pixel')
+plt.ylabel('gray value - dark value $µ_{y}−µ_{y_{dark}}$')
+plt.xlim(xmin=0)
+plt.ylim(ymin=0)
+plt.legend()
+plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+plt.grid()
+plt.show()
 
 'Photonentransferkurve Plotten'
-# plt.plot(delta_u,delta_s,'o', label='Data')
-# x_photo = np.linspace(1,230,10)
-# res_sens = stats.linregress(delta_u[:7],delta_s[:7])
-# plt.plot(x_photo,res_sens.intercept + res_sens.slope*x_photo, label='fit')
-# plt.title('Photonentransfer (U-Kugel)')
-# plt.xlabel('gray value - dark value µ_y−µ_ydark')
-# plt.ylabel('variance gray value σ_y^2−σ_ydark^2')
-# plt.xlim(xmin=0)
-# plt.ylim(ymin=0)
-# plt.legend()
-# plt.grid()
-# plt.show()
+plt.plot(delta_u,delta_s,'o', label='Data')
+x_photo = np.linspace(1,230,10)
+res_sens = stats.linregress(delta_u[:7],delta_s[:7])
+plt.plot(x_photo,res_sens.intercept + res_sens.slope*x_photo, label='fit')
+plt.title('Photonentransfer (U-Kugel)')
+plt.xlabel('gray value - dark value $µ_y−µ_{y_{dark}}$')
+plt.ylabel('variance gray value $σ_y^2−σ^2_{y_{dark}}$')
+plt.xlim(xmin=0)
+plt.ylim(ymin=0)
+plt.legend()
+plt.grid()
+plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+plt.show()
 
 'Kennwerte Bestimmen'
 'Bei K und R nur 70% der Werte nutzen'
@@ -212,34 +214,34 @@ print('σ^2_d = ', + s_d)
 
 ## Aufgabe 2
 # 'SNR-Kurve'
-# SNR = (eta * u_p)/np.sqrt(s_d+s_q/K**2 + eta * u_p)
+SNR = (eta * u_p)/np.sqrt(s_d+s_q/K**2 + eta * u_p)
 # 'Data plotten:'
-# plt.loglog(u_p,SNR,'o', label='Data')
-# x_snr = np.linspace(1,np.max(u_p),1000)
+plt.loglog(u_p,SNR,'o', label='Data')
+x_snr = np.linspace(1,np.max(u_p),1000)
 # 'theor. limit plotten:'
-# plt.loglog(x_snr,np.sqrt(x_snr), label='theor. limit')
-# plt.title('SNR-Kurve (U-Kugel)')
-# plt.xlabel('irradiation in photons/pixel')
-# plt.ylabel('SNR')
-# plt.grid(True, which="both", ls="-")
-# plt.xlim(xmin=1)
-# plt.ylim(ymin=0.1)
+plt.loglog(x_snr,np.sqrt(x_snr), label='theor. limit')
+plt.title('SNR-Kurve (U-Kugel)')
+plt.xlabel('irradiation in photons/pixel')
+plt.ylabel('SNR')
+plt.grid(True, which="both", ls="-")
+plt.xlim(xmin=1)
+plt.ylim(ymin=0.1)
 
 'u_p min und u_p sat, senkrechte Linien plotten'
-# plt.vlines(x=u_p[8], ymin=0, ymax=10000, color='black', linestyles='--')
-# plt.text(u_p[8],0.5,'Saturation',rotation=90)
-# u_pmin = 1/eta * (np.sqrt(s_d+s_q/K**2)+0.5)
-# plt.vlines(x=u_pmin, ymin=0, ymax=10000, color='black', linestyles='--')
-# plt.text(u_pmin,0.5,'threshold',rotation=90)
-# DR = 20 * np.log10(u_p[8]/u_pmin)
-#
-# print("DR = ",  DR, " dB")
+plt.vlines(x=u_p[8], ymin=0, ymax=10000, color='black', linestyles='--')
+plt.text(u_p[8],0.5,'Saturation',rotation=90)
+u_pmin = 1/eta * (np.sqrt(s_d+s_q/K**2)+0.5)
+plt.vlines(x=u_pmin, ymin=0, ymax=10000, color='black', linestyles='--')
+plt.text(u_pmin,0.5,'threshold',rotation=90)
+DR = 20 * np.log10(u_p[8]/u_pmin)
+
+print("DR = ",  DR, " dB")
 
 'Fit plotten'
-# snr_fit = (eta * x_snr)/np.sqrt(s_d+s_q/K**2 + eta * x_snr)
-# plt.loglog(x_snr, snr_fit, label='fit')
-# plt.legend()
-# plt.show()
+snr_fit = (eta * x_snr)/np.sqrt(s_d+s_q/K**2 + eta * x_snr)
+plt.loglog(x_snr, snr_fit, label='fit')
+plt.legend()
+plt.show()
 
 ## Aufgabe 3
 'Importieren der Bilder'
@@ -263,6 +265,7 @@ for i in range(16) :
 y_dark = y_dark/16
 
 plt.imshow(y_dark,cmap='gray')
+plt.title("Dunkelbild")
 plt.show()
 
 'Hellbild'
@@ -272,7 +275,9 @@ for i in range(16) :
 y_50 = y_50/16
 
 
+
 plt.imshow(y_50,cmap='gray')
+plt.title("Hellbild")
 plt.show()
 w=3840
 h=2748
@@ -313,6 +318,9 @@ print('PRNU = ', PRNU*100,'%')
 'Spektogramme'
 y_dark_norm = y_dark - np.mean(y_dark)
 y_50_norm = y_50 - np.mean(y_50)
+
+# plt.imshow(y_50_norm,cmap='gray')
+
 
 #
 #
@@ -406,7 +414,7 @@ plt.legend()
 plt.show()
 
 'Vertikales Spektroggramm PRNU'
-Y_n_v_bright = np.fft.fft(y_50_norm, axis=0)
+Y_n_v_bright = np.fft.fft(y_50_norm, axis=1)
 p_v_n_bright = np.zeros(Y_n_v_bright.shape[0])
 for i in range(Y_n_v_bright.shape[1]):
     p_v_n_bright = p_v_n_bright + (Y_n_v_bright[:,i] * np.transpose(np.conj(Y_n_v_bright[:,i])))
@@ -441,9 +449,11 @@ highpass_img = highpass_img + np.abs(np.min(highpass_img))
 plt.hist(y_dark.flatten()-np.mean(y_dark.flatten()), 255)
 plt.yscale('log')
 
-plt.title('Histogramm DSNU (U-Kugel)')
+plt.title('Histogramm DSNU')
+plt.vlines(9, 0, 10000, linestyles="dotted", colors="red")
 plt.xlabel('Deviation from mean in DN')
 plt.ylabel('Number of pixel/bin')
+plt.legend(["Schwellwert", "Daten"])
 plt.show()
 
 plt.hist(highpass_img.flatten()-np.mean(highpass_img.flatten()), 255)
@@ -456,21 +466,26 @@ parameters, covariance = curve_fit(Gauss, x_histogram[:-1], y_histogram)
 fit_A = parameters[0]
 fit_B = parameters[1]
 fit_y = Gauss(x_histogram, fit_A, fit_B)
-plt.plot(x_histogram,fit_y, '--', label='fit')
+# plt.plot(x_histogram,fit_y, '--', label='fit')
 
-plt.title('Histogramm PRNU (U-Kugel)')
+plt.title('Histogramm PRNU')
+plt.vlines(-13.7, 0, 10000, linestyles="dotted", colors="red")
 plt.xlabel('Deviation from mean in %')
 plt.ylabel('Number of pixel/bin')
+plt.legend(["Schwellwert", "Daten"])
 plt.show()
 
 
 
 defect_pixel = highpass_img-np.mean(highpass_img)
-circle1 = plt.Circle((np.where(defect_pixel>15)[1],np.where(defect_pixel>15)[0]), 10, color='r', fill=False)
-circle2 = plt.Circle((np.where(defect_pixel<-14.5)[1][0],np.where(defect_pixel<-14.5)[0][0]), 10, color='r', fill=False)
-circle3 = plt.Circle((np.where(defect_pixel<-13.8)[1][1],np.where(defect_pixel<-13.8)[0][1]), 10, color='r', fill=False)
-circle4 = plt.Circle((np.where(defect_pixel>13.25)[1][1],np.where(defect_pixel>13.25)[0][1]), 10, color='r', fill=False)
+# circle1 = plt.Circle((np.where(defect_pixel>15)[1],np.where(defect_pixel>15)[0]), 10, color='r', fill=False)
+# circle2 = plt.Circle((np.where(defect_pixel<-14.5)[1][0],np.where(defect_pixel<-14.5)[0][0]), 10, color='r', fill=False)
+circle3 = plt.Circle((np.where(defect_pixel<-13.7)[1][0],np.where(defect_pixel<-13.8)[0][0]), 10, color='r', fill=False)
+circle2 = plt.Circle((np.where(defect_pixel<-13.7)[1][1],np.where(defect_pixel<-13.8)[0][1]), 10, color='r', fill=False)
 
+# circle4 = plt.Circle((np.where(defect_pixel>-13.25)[1][1],np.where(defect_pixel>13.25)[0][1]), 10, color='r', fill=False)
+
+print(circle3, circle2)
 
 
 lowpass_img_dark = gaussian_filter(y_dark_norm, sigma=13)
@@ -495,10 +510,10 @@ plt.show()
 
 fig, ax = plt.subplots()
 fig = plt.imshow(y_50_norm, cmap='gray')
-ax.add_patch(circle1)
+# ax.add_patch(circle1)
 ax.add_patch(circle2)
 ax.add_patch(circle3)
-ax.add_patch(circle4)
+# ax.add_patch(circle4)
 plt.show()
 
 
