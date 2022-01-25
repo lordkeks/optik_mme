@@ -339,19 +339,27 @@ y_50_norm = y_50 - y_dark  - np.mean(y_50-y_dark)
 # Y_m_v_dark = np.fft.fft(y_dark_norm, axis=0)
 Y_m_v_dark = np.fft.fft(y_dark_norm, axis=1) / np.sqrt(w)
 
-p_v_m_dark = np.zeros(Y_m_v_dark.shape[1])
-for i in range(Y_m_v_dark.shape[0]):
-    p_v_m_dark = p_v_m_dark + (Y_m_v_dark[i,:] * np.transpose(np.conj(Y_m_v_dark[i,:])))
+# p_v_m_dark = np.zeros(Y_m_v_dark.shape[1])
+# for i in range(Y_m_v_dark.shape[0]):
+#     p_v_m_dark = p_v_m_dark + (Y_m_v_dark[i,:] * np.transpose(np.conj(Y_m_v_dark[i,:])))
+#
+#
+#
+#
+#
+#
+# p_v_m_dark = np.sqrt(p_v_m_dark * 1/Y_m_v_dark.shape[0])[:1920]
+# freq = np.fft.fftfreq(Y_m_v_dark.shape[-1])[:1920]
 
 
+p_v_m_dark = np.real(np.sqrt(np.sum(Y_m_v_dark*np.conjugate(Y_m_v_dark), axis=0)/h))
 
 
+spec_x_h = np.arange(1, w+1,1)/w
 
 
-p_v_m_dark = np.sqrt(p_v_m_dark * 1/Y_m_v_dark.shape[0])[:1920]
-freq = np.fft.fftfreq(Y_m_v_dark.shape[-1])[:1920]
-
-plt.plot(freq,np.abs(p_v_m_dark),label='Spektrogramm')
+# plt.plot(freq,np.abs(p_v_m_dark),label='Spektrogramm')
+plt.plot(spec_x_h, np.sqrt(p_v_m_dark)/K,'k', linewidth=1)
 plt.yscale('log')
 
 #plt.ylim(ymax=100, ymin=0.01)
@@ -365,6 +373,8 @@ plt.hlines(y=DSNU, xmin=0, xmax=1, color='black', linestyles = '--', label='DSNU
 plt.hlines(y=sigma_y_2_stack_dark, xmin=0, xmax=1, color='black', linestyles='-.', label='sigma_y_2_stack_dark')
 plt.legend()
 plt.show()
+
+
 
 'Horizontales Spektroggramm PRNU'
 
