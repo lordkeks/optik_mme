@@ -264,6 +264,8 @@ for i in range(16) :
     y_dark = y_dark + A3_dark[i]
 y_dark = y_dark/16
 
+print("Mean Y-Dark" + str(np.mean(y_dark)))
+
 plt.imshow(y_dark,cmap='gray')
 plt.title("Dunkelbild")
 plt.show()
@@ -285,7 +287,7 @@ h=2748
 s_ydark_2 = 1/((w*h)-1) * np.sum((y_dark - np.mean(y_dark))**2)
 s_y50_2 = 1/((w*h)-1) * np.sum((y_50 - np.mean(y_50))**2)
 
-
+print("Sigma_y_dark2","Sigma_y2")
 print(s_ydark_2, s_y50_2)
 
 'pixelweise zeitliche Rauschvarianz'
@@ -322,8 +324,6 @@ y_50_norm = y_50 - np.mean(y_50)
 # plt.imshow(y_50_norm,cmap='gray')
 
 
-#
-#
 # gen = np.zeros((3840, 2748))
 # for i, x in enumerate(gen):
 #     if i%2!=0:
@@ -335,6 +335,7 @@ y_50_norm = y_50 - np.mean(y_50)
 
 
 'Horizontales Spektroggramm DSNU'
+
 Y_m_v_dark = np.fft.fft(y_dark_norm, axis=0)
 p_v_m_dark = np.zeros(Y_m_v_dark.shape[1])
 for i in range(Y_m_v_dark.shape[0]):
@@ -413,6 +414,12 @@ plt.hlines(y=DSNU, xmin=0, xmax=1, color='black', linestyles = '--', label='DSNU
 plt.hlines(y=sigma_y_2_stack_dark, xmin=0, xmax=1, color='black', linestyles='-.', label='sigma_y_2_stack_dark')
 plt.legend()
 plt.show()
+
+
+plt.imshow(y_50_norm)
+plt.show()
+
+plt.imsave("y_50_norm.jpg",y_50_norm)
 
 'Vertikales Spektroggramm PRNU'
 Y_n_v_bright = np.fft.fft(y_50_norm, axis=0)
